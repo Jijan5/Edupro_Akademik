@@ -52,9 +52,9 @@
     </div>
 
     <!-- Hero Section -->
-    <section id="profile" class="pt-24 bg-gray-900 text-white">
+    <section id="profile" class="pt-20 bg-gray-900 text-white">
         <div
-            class="max-w-6xl mx-auto flex flex-col md:flex-row items-center px-6 py-12 space-y-6 md:space-y-0 md:space-x-10">
+            class="max-w-6xl mx-auto flex flex-col md:flex-row items-center px-10 py-10 space-y-6 md:space-y-0 md:space-x-10">
             <img src="{{ asset('images/edupro-logo2.png') }}" alt="EduPro Logo" class="w-40 h-40 mx-auto md:mx-0">
             <div class="text-justify">
                 <p class="text-lg leading-relaxed">
@@ -163,11 +163,11 @@
             <div class="flex flex-wrap justify-center gap-4 overflow-x-auto pb-4 border-b border-blue-300">
                 <template
                     x-for="(tab, index) in [
-          {id:1, nama:'Ars Universitas'},
+          {id:1, nama:'ARS University'},
           {id:2, nama:'STIT Bandung'},
           {id:3, nama:'IWU'},
           {id:4, nama:'UICM'},
-          {id:5, nama:'STIEB Bina Esa'}
+          {id:5, nama:'STEBI Bina Essa'}
         ]"
                     :key="tab.id">
                     <button @click="openTab = tab.id"
@@ -182,87 +182,663 @@
             <!-- Konten Tab -->
             <div class="mt-8 text-left">
                 <!-- Ars Universitas -->
-                <div x-show="openTab === 1" x-transition>
-                    <h3 class="text-xl font-bold text-blue-700 mb-4">Ars Universitas</h3>
+                <div x-show="openTab === 1" x-transition x-data="{
+                    fakultas: '',
+                    programStudi: '',
+                    listProdi: {
+                        'Fakultas Teknologi Informasi': [
+                            'Program Studi Sistem Informasi S1',
+                            'Program Studi Teknik Informatika S1'
+                        ],
+                        'Fakultas Ekonomi': [
+                            'Program Studi Akuntansi S1',
+                            'Program Studi Manajemen S1'
+                        ],
+                        'Fakultas Komunikasi Dan Desain': [
+                            'Program Studi Ilmu Komunikasi S1',
+                            'Program Studi Desain Komunikasi Visual S1'
+                        ],
+                        'Fakultas Keperawatan': [
+                            'Program Studi Ilmu Keperawatan S1',
+                            'Program Profesi Ners'
+                        ],
+                        'Pariwisata Dan Perhotelan': [
+                            'Program Studi Manajemen Pariwisata S1',
+                            'Program Studi Perhotelan D3'
+                        ]
+                    }
+                }">
+                    <h3 class="text-xl font-bold text-blue-700 mb-4">Ars University</h3>
+
                     <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Dropdown Fakultas -->
                         <div>
-                            <label class="block mb-2 font-semibold">Fakultas:</label>
-                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2">
-                                <option>-- Pilih Fakultas --</option>
-                                <option>Teknik</option>
-                                <option>Ekonomi</option>
-                                <option>Keguruan</option>
+                            <label class="block mb-2 font-semibold text-gray-700">Fakultas:</label>
+                            <select x-model="fakultas"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                <option value="">-- Pilih Fakultas --</option>
+                                <template x-for="(prodis, key) in listProdi" :key="key">
+                                    <option x-text="key"></option>
+                                </template>
                             </select>
                         </div>
+
+                        <!-- Dropdown Program Studi -->
                         <div>
-                            <label class="block mb-2 font-semibold">Program Studi:</label>
-                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2">
-                                <option>-- Pilih Program Studi --</option>
-                                <option>S1 Informatika</option>
-                                <option>S1 Manajemen</option>
-                                <option>S1 Pendidikan</option>
+                            <label class="block mb-2 font-semibold text-gray-700">Program Studi:</label>
+                            <select x-model="programStudi"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                <option value="">-- Pilih Program Studi --</option>
+                                <template x-if="fakultas">
+                                    <template x-for="prodi in listProdi[fakultas]" :key="prodi">
+                                        <option x-text="prodi"></option>
+                                    </template>
+                                </template>
                             </select>
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <p>Rincian Biaya: <strong>Rp 4.500.000/semester</strong></p>
-                        <p>Total Biaya: <strong>Rp 36.000.000</strong></p>
+
+                    <div class="mt-6 text-gray-700">
+                        <h4 class="font-semibold text-lg mb-3 text-blue-700">Rincian Biaya</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border border-gray-300 rounded-lg overflow-hidden text-sm">
+                                <thead class="bg-blue-100 text-gray-700">
+                                    <tr>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Keterangan</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Semester 1</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Semester 2–4</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Semester 5–8</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Formulir</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Pra Kuliah</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 2.000.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Kuliah</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.500.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.500.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.500.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">SPP</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 1.000.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                    </tr>
+                                    <tr class="font-semibold bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Jumlah per Semester</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 6.750.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 5.500.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.500.000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+
                     <div class="mt-6 text-right">
-                        <button href="{{ url('/pendaftaran') }}"
-                            class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">Daftar
-                            Sekarang</button>
+                        <a @click.prevent="
+                            const url = new URL('{{ url('/pendaftaran') }}');
+                            url.searchParams.set('universitas', 'ARS University');
+                            url.searchParams.set('fakultas', fakultas);
+                            url.searchParams.set('program_studi', programStudi);
+                            window.location.href = url.toString();
+                          "
+                            href="#"
+                            class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
+                            Daftar Sekarang
+                        </a>
                     </div>
                 </div>
 
                 <!-- STIT Bandung -->
-                <div x-show="openTab === 2" x-transition>
+                <div x-show="openTab === 2" x-transition x-data="{ programStudi: '', baseUrl: '{{ url('/pendaftaran') }}' }">
                     <h3 class="text-xl font-bold text-blue-700 mb-4">STIT Bandung</h3>
+
                     <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Dropdown Program Studi -->
                         <div>
-                            <label class="block mb-2 font-semibold">Fakultas:</label>
-                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2">
-                                <option>-- Pilih Fakultas --</option>
-                                <option>Agama Islam</option>
-                                <option>Pendidikan Guru</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block mb-2 font-semibold">Program Studi:</label>
-                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2">
-                                <option>-- Pilih Program Studi --</option>
-                                <option>S1 PAI</option>
-                                <option>S1 PGMI</option>
+                            <label class="block mb-2 font-semibold text-gray-700">Program Studi:</label>
+                            <select x-model="programStudi"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                <option value="">-- Pilih Program Studi --</option>
+                                <option>Pendidikan Agama Islam (PAI) S1</option>
+                                <option>Manajemen Pendidikan Islam S1</option>
+                                <option>Pendidikan Islam Anak Usia Dini (PIAUDI) S1</option>
+                                <option>Pendidikan Guru Madrasah Ibtidaiyah (PGMI) S1</option>
+                                <option>Manajemen Keuangan Syariah S1</option>
+                                <option>Ekonomi Islam S1</option>
+                                <option>Perbankan Syariah S1</option>
+                                <option>Pendidikan Bahasa Inggris S1</option>
+                                <option>Sastra & Bahasa Indonesia S1</option>
                             </select>
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <p>Rincian Biaya: <strong>Rp 3.800.000/semester</strong></p>
-                        <p>Total Biaya: <strong>Rp 30.400.000</strong></p>
+
+                    <!-- Rincian Biaya -->
+                    <div class="mt-6 text-gray-700">
+                        <h4 class="font-semibold text-lg mb-3 text-blue-700">Rincian Biaya Akan Diinfokan Lebih lanjut
+                        </h4>
+                        {{-- <div class="overflow-x-auto">
+                            <table class="w-full border border-gray-300 rounded-lg overflow-hidden text-sm">
+                                <thead class="bg-blue-100 text-gray-700">
+                                    <tr>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Deskripsi</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Program KIP-K</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Kelar Reguler &
+                                            Experience</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Kelas Sore/Karyawan
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Pendaftaran</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Jas Almamater, KTM dan Buku
+                                            Panduan</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 700.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 700.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 700.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Asuransi Kecelakaan</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Pengembangan Pendidikan
+                                            (BPP)</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.000.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.000.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Pendidikan (BP) Persemester
+                                        </td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">FISB</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.900.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.400.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">FST</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.750.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">FSD</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.950.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 5.450.000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> --}}
                     </div>
+
                     <div class="mt-6 text-right">
-                        <button href="{{ url('/pendaftaran') }}"
-                            class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">Daftar
-                            Sekarang</button>
+                        <a :href="baseUrl +
+                            '?universitas=' + encodeURIComponent('STIT Bandung ') + '&program_studi=' + encodeURIComponent(programStudi)"
+                            href="#"
+                            class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
+                            Daftar Sekarang
+                        </a>
                     </div>
                 </div>
 
                 <!-- IWU -->
-                <div x-show="openTab === 3" x-transition>
+                <div x-show="openTab === 3" x-transition x-data="{ programStudi: '', baseUrl: '{{ url('/pendaftaran') }}' }">
                     <h3 class="text-xl font-bold text-blue-700 mb-4">IWU</h3>
-                    <p class="text-gray-700 mb-4">Informasi pendaftaran IWU akan segera tersedia.</p>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Dropdown Program Studi -->
+                        <div>
+                            <label class="block mb-2 font-semibold text-gray-700">Program Studi:</label>
+                            <select x-model="programStudi"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                <option value="">-- Pilih Program Studi --</option>
+                                <option>Hubungan International</option>
+                                <option>Ilmu Komunikasi</option>
+                                <option>Ilmu Politik</option>
+                                <option>Administrasi Bisnis</option>
+                                <option>Matematika</option>
+                                <option>Biologi</option>
+                                <option>Desain Interior</option>
+                                <option>Fisika</option>
+                                <option>Kimia</option>
+                                <option>Desain Komunikasi Visual</option>
+                                <option>Informatika</option>
+                                <option>Akuntansi Perpajakan</option>
+                                <option>Peradilan Pidana</option>
+                            </select>
+                        </div>
+                    </div>
+
+                     <!-- Rincian Biaya -->
+                     <div class="mt-6 text-gray-700">
+                        <h4 class="font-semibold text-lg mb-3 text-blue-700">Rincian Biaya</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border border-gray-300 rounded-lg overflow-hidden text-sm">
+                                <thead class="bg-blue-100 text-gray-700">
+                                    <tr>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Deskripsi</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Program KIP-K</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Kelar Reguler &
+                                            Experience</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Kelas Sore/Karyawan
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Pendaftaran</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Jas Almamater, KTM dan Buku
+                                            Panduan</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 700.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 700.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 700.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Asuransi Kecelakaan</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Pengembangan Pendidikan
+                                            (BPP)</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.000.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.000.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Pendidikan (BP) Persemester
+                                        </td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">FISB</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.900.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.400.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">FST</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.750.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">FSD</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.950.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 5.450.000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 text-right">
+                        <a :href="baseUrl + '?universitas=' + encodeURIComponent('IWU') + '&program_studi=' + encodeURIComponent(programStudi)"
+                            href="#"
+                            class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
+                            Daftar Sekarang
+                        </a>
+                    </div>
                 </div>
 
                 <!-- UICM -->
-                <div x-show="openTab === 4" x-transition>
+                <div x-show="openTab === 4" x-transition x-data="{
+                    fakultas: '',
+                    programStudi: '',
+                    listProdi: {
+                        'Fakultas Ekonomi & Bisnis': [
+                            'Program Studi Akuntansi S1',
+                            'Program Studi Manajemen S1'
+                        ],
+                        'Fakultas Teknik': [
+                            'Program Studi Teknik Industri S1',
+                            'Program Studi Teknik Kimia S1',
+                            'Program Studi Teknik Industri Tekstil D3',
+                            'Program Studi Teknik Kimia Tekstil D3'
+                        ],
+                        'Fakultas Pertanian': [
+                            'Program Studi Agribisnis S1',
+                            'Program Studi Agroteknologi S1',
+                            'Program Studi Peternakan S1',
+                            'Program Studi Arsitektur Lanskap S1',
+                            'Program Studi Teknologi Hasil Pertanian S1',
+                        ],
+                        'Fakultas Keguruan & Ilmu Pendidikan': [
+                            'Program Studi Pendidikan Masyarakat S1'
+                        ]
+                    }
+                }">
                     <h3 class="text-xl font-bold text-blue-700 mb-4">UICM</h3>
-                    <p class="text-gray-700 mb-4">Informasi pendaftaran UICM akan segera tersedia.</p>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Dropdown Fakultas -->
+                        <div>
+                            <label class="block mb-2 font-semibold text-gray-700">Fakultas:</label>
+                            <select x-model="fakultas"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                <option value="">-- Pilih Fakultas --</option>
+                                <template x-for="(prodis, key) in listProdi" :key="key">
+                                    <option x-text="key"></option>
+                                </template>
+                            </select>
+                        </div>
+
+                        <!-- Dropdown Program Studi -->
+                        <div>
+                            <label class="block mb-2 font-semibold text-gray-700">Program Studi:</label>
+                            <select x-model="programStudi"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                <option value="">-- Pilih Program Studi --</option>
+                                <template x-if="fakultas">
+                                    <template x-for="prodi in listProdi[fakultas]" :key="prodi">
+                                        <option x-text="prodi"></option>
+                                    </template>
+                                </template>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 text-gray-700">
+                        <h4 class="font-semibold text-lg mb-3 text-blue-700">Rincian Biaya</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border border-gray-300 rounded-lg overflow-hidden text-sm">
+                                <thead class="bg-blue-100 text-gray-700">
+                                    <tr>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Uang Pendaftaran</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Uang Penyelenggara
+                                            PKKMB & Almamater</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Dana Pengembangan
+                                            Pendidikan</th>
+                                    </tr>
+                                </thead>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-2">Rp. 100.000</td>
+                                    <td class="border border-gray-300 px-4 py-2 text-center">Rp. 500.000</td>
+                                    <td class="border border-gray-300 px-4 py-2 text-center">Rp. 2.000.000</td>
+                                </tr>
+                                <thead class="bg-blue-100 text-gray-700">
+                                    <tr>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Program Studi Fakultas
+                                            Teknik</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">SPP/Semester</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Registrasi Semester
+                                        </th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Praktikum SKS</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Kemahasiswaan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Teknik Industri S1</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.500.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 200.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Teknik Kimia S1</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.500.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 200.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Teknik Idustri Tekstil D3</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.000.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 250.00</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 200.00</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.00</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Teknik Kimia Tekstil D3</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.000.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 200.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <thead class="bg-blue-100 text-gray-700">
+                                        <tr>
+                                            <th class="border border-gray-300 px-4 py-2 text-left">Program Studi
+                                                Fakultas Pertanian</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-center">SPP/Semester</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-center">Registrasi
+                                                Semester</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-center">Praktikum SKS</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-center">Kemahasiswaan</th>
+                                        </tr>
+                                    </thead>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Agribisnis S1</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.000.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 200.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Agroteknologi S1</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.000.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 200.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Arsitektur Lanskap/Pertamanan S1
+                                        </td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 200.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Teknologi Hasil Pertanian S1</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.000.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 200.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Peternakan S1</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 200.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <thead class="bg-blue-100 text-gray-700">
+                                        <tr>
+                                            <th class="border border-gray-300 px-4 py-2 text-left">Program Studi
+                                                Fakultas Ekonomi</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-center">SPP/Semester</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-center">Registrasi
+                                                Semester</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-center">Praktikum SKS</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-center">Kemahasiswaan</th>
+                                        </tr>
+                                    </thead>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Akuntansi S1</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Manajemen S1</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.000.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <thead class="bg-blue-100 text-gray-700">
+                                        <tr>
+                                            <th class="border border-gray-300 px-4 py-2 text-left">Program Studi
+                                                Fakultas Keguruan & Ilmu Pendidikan</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-center">SPP/Semester</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-center">Registrasi
+                                                Semester</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-center">Praktikum SKS</th>
+                                            <th class="border border-gray-300 px-4 py-2 text-center">Kemahasiswaan</th>
+                                        </tr>
+                                    </thead>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Pendidikan Luar Sekolah/Pendidikan
+                                            Masyarakat S1</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.000.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 text-right">
+                        <a @click.prevent="
+                            const url = new URL('{{ url('/pendaftaran') }} ');
+                        url.searchParams.set('universitas', 'UICM');
+                        url.searchParams.set('program_studi', programStudi);
+                        window.location.href = url.toString();"
+                            href="#"
+                            class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
+                            Daftar Sekarang
+                        </a>
+                    </div>
                 </div>
 
-                <!-- STIEB Bina Esa -->
-                <div x-show="openTab === 5" x-transition>
-                    <h3 class="text-xl font-bold text-blue-700 mb-4">STIEB Bina Esa</h3>
-                    <p class="text-gray-700 mb-4">Informasi pendaftaran STIEB Bina Esa akan segera tersedia.</p>
+                <!-- STEBI Bina Essa -->
+                <div x-show="openTab === 5" x-transition x-data="{ programStudi: '', baseUrl: '{{ url('/pendaftaran') }}' }">
+                    <h3 class="text-xl font-bold text-blue-700 mb-4">STEBI Bina Essa</h3>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Dropdown Program Studi -->
+                        <div>
+                            <label class="block mb-2 font-semibold text-gray-700">Program Studi:</label>
+                            <select x-model="programStudi"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                <option value="">-- Pilih Program Studi --</option>
+                                <option>Ekonomi Syariah S1</option>
+                                <option>Perbankan Syariah S1</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Rincian Biaya -->
+                    <div class="mt-6 text-gray-700">
+                        <h4 class="font-semibold text-lg mb-3 text-blue-700">Rincian Biaya Akan Diinfokan Lebih lanjut
+                        </h4>
+                        {{-- <div class="overflow-x-auto">
+                            <table class="w-full border border-gray-300 rounded-lg overflow-hidden text-sm">
+                                <thead class="bg-blue-100 text-gray-700">
+                                    <tr>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Deskripsi</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Program KIP-K</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Kelar Reguler &
+                                            Experience</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Kelas Sore/Karyawan
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Pendaftaran</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Jas Almamater, KTM dan Buku
+                                            Panduan</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 700.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 700.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 700.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Asuransi Kecelakaan</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Pengembangan Pendidikan
+                                            (BPP)</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.000.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.000.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Pendidikan (BP) Persemester
+                                        </td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">FISB</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.900.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.400.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">FST</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.750.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">FSD</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.950.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 5.450.000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> --}}
+                    </div>
+
+                    <div class="mt-6 text-right">
+                        <a :href="baseUrl + '?universitas=' + encodeURIComponent('STEBI Bina Essa ') + ' & program_studi =
+                            ' + encodeURIComponent(programStudi)"
+                            href="#"
+                            class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
+                            Daftar Sekarang
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

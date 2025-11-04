@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\LandingPage;
@@ -18,9 +19,9 @@ class PendaftaranController extends Controller
     {
         $validated = $request->validate([
             'universitas' => 'required|string',
-            'jalur_program' => 'required|string',
-            'no_kip' => 'nullable|string|max:100',
-            'file_kip' => 'nullable|mimes:pdf,jpg,jpeg,png|max:2048', // Sesuaikan nama field
+            'jalur_program' => 'required|in:KIP,Non-KIP',
+            // 'no_kip' => 'nullable|string|max:100',
+            // 'file_kip' => 'nullable|mimes:pdf,jpg,jpeg,png|max:2048',
             'nama_lengkap' => 'required|string|max:255',
             'nisn' => 'required|string|size:10',
             'tempat_lahir' => 'required|string|max:255',
@@ -32,7 +33,11 @@ class PendaftaranController extends Controller
             'no_ijazah' => 'nullable|string|max:100',
             'file_transkrip' => 'nullable|mimes:pdf,jpg,jpeg,png|max:2048', // Sesuaikan
             'file_foto' => 'nullable|mimes:jpg,jpeg,png|max:2048', // Sesuaikan
-            'fakultas' => 'required|string|max:255',
+            'fakultas' => Rule::requiredIf(function () use ($request) {
+                // hanya wajib jika universitas punya fakultas
+                $univDenganFakultas = ['ARS University', 'UICM'];
+                return in_array($request->universitas, $univDenganFakultas);
+            }),
             'program_studi' => 'required|string|max:255',
             'no_hp' => 'required|string|max:20',
             'email' => 'required|email|unique:users,email',
@@ -50,8 +55,29 @@ class PendaftaranController extends Controller
         // upload pas foto (wajib)
         $validated['file_foto'] = $request->file('file_foto')->store('file_foto', 'public');
 
-        // upload KIP (wajib)
-        $validated['file_kip'] = $request->file('file_kip')->store('file_kip', 'public');
+        // upload file kip hanya wajib kalau jalur KIP
+        if ($request->jalur_program === 'KIP') {
+            // pastikan nomor KIP dan file KIP ada kalau memilih KIP
+            $request->validate([
+            'no_kip'   => 'required|string|max:6',
+            'file_kip' => 'required|mimes:pdf,jpg,jpeg,png|max:2048',
+            ]);
+
+            $validated['no_kip'] = $request->input('no_kip');
+
+            if ($request->hasFile('file_kip')) {
+            $validated['file_kip'] = $request->file('file_kip')->store('file_kip', 'public');
+            }
+        } else {
+            // kalau Non-KIP -> biarkan kosong/null
+            $validated['no_kip'] = null;
+            $validated['file_kip'] = null;
+        }
+
+        // Upload foto (wajib)
+        if ($request->hasFile('file_foto')) {
+            $validated['file_foto'] = $request->file('file_foto')->store('file_foto', 'public');
+        }
 
         // Enkripsi password
         $validated['password'] = Hash::make($validated['password']);

@@ -16,7 +16,7 @@ return new class extends Migration
             // Data umum
             $table->string('universitas');
             $table->enum('jalur_program', ['KIP', 'Non-KIP']);
-            $table->string('no_kip')->unique();
+            $table->string('no_kip', 6)->unique();
             $table->string('file_kip');
 
             // Data pribadi

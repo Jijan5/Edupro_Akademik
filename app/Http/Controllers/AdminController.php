@@ -44,11 +44,6 @@ class AdminController extends Controller
         return view('admin.index', compact('users'));
     }
 
-    // public function index()
-    // {
-    //     $data = LandingPage::orderBy('created_at', 'desc')->get();
-    //     return view('admin.index', compact('data'));
-    // }
     public function edit($id)
     {
         $data = LandingPage::findOrFail($id);
@@ -62,7 +57,7 @@ class AdminController extends Controller
         $validated = $request->validate([
             'universitas' => 'nullable|string',
             'jalur_program' => 'nullable|string',
-            'no_kip' => 'nullable|string|max:100',
+            'no_kip' => 'nullable|string|max:6',
             'file_kip' => 'nullable|mimes:pdf,jpg,jpeg,png|max:2048',
             'nama_lengkap' => 'nullable|string|max:255',
             'nisn' => 'nullable|string|size:10',
@@ -91,7 +86,7 @@ class AdminController extends Controller
 
         $record->update($validated);
 
-        return redirect('admin.index')->with('success', 'Data berhasil diperbarui.');
+        return redirect()->route('admin.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     public function delete($id)
