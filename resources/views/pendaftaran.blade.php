@@ -55,7 +55,7 @@
 
                     <!-- Form -->
                     <form action="{{ route('pendaftaran.store') }}" method="POST" enctype="multipart/form-data"
-                        x-data="pendaftaranForm()" class="space-y-4">
+                        class="space-y-4">
                         @csrf
 
                         <!-- Universitas -->
@@ -76,7 +76,7 @@
                             fakultas: '',
                             programStudi: '',
                             // daftar universitas yang TIDAK punya fakultas
-                            noFakultasList: ['STIT Bandung', 'IWU', 'STEBI Bina Essa'],
+                            noFakultasList: ['STIT Bandung', 'IWU', 'STEBI Bina Essa', 'Universitas Wiralodra'],
                             data: {
                                 'ARS University': {
                                     fakultas: {
@@ -167,7 +167,15 @@
                                             'Perbankan Syariah S1'
                                         ]
                                     }
-                                }
+                                },
+                                'Universitas Wiralodra': {
+                                    fakultas: {
+                                        'Program Studi': [
+                                            'Manajemen Pendidikan S2',
+                                            'Hukum S2'
+                                        ]
+                                    }
+                                },
                             },
 
                             init() {
