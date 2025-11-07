@@ -73,7 +73,7 @@ class AdminController extends Controller
             'fakultas' => 'nullable|string|max:255',
             'program_studi' => 'nullable|string|max:255',
             'no_hp' => 'nullable|string|max:20',
-            'email' => 'nullable|email|unique:users,email',
+            'email' => 'nullable|email',
         ]);
 
         // Proses upload file baru jika ada

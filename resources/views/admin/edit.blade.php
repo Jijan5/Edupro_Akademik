@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Data Pendaftaran</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -38,17 +39,203 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">universitas</label>
-                    <select name="universitas"
-                        class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 px-3 py-2 bg-white">
-                        <option value="ARS University" {{ $data->universitas == 'ARS University' ? 'selected' : '' }}>ARS University</option>
-                        <option value="STIT Bandung" {{ $data->universitas == 'STIT Bandung' ? 'selected' : '' }}>STIT Bandung</option>
-                        <option value="IWU" {{ $data->universitas == 'IWU' ? 'selected' : '' }}>IWU</option>
-                        <option value="UICM" {{ $data->universitas == 'UICM' ? 'selected' : '' }}>UICM</option>
-                        <option value="STIEB Bina Esa" {{ $data->universitas == 'STIEB Bina Esa' ? 'selected' : '' }}>STEBI Bina Essa</option>
-                    </select>
+                <!-- Bungkus semua dropdown dalam satu div -->
+                <div x-data="editForm()" x-init="initData('', '', '')" class="space-y-4">
+
+                    <!-- Universitas -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Universitas</label>
+                        <select x-model="selectedUniv" name="universitas"
+                            class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 px-3 py-2 bg-white"
+                            @change="updateFakultas()">
+                            <option value="">-- Pilih Universitas --</option>
+                            <template x-for="(val, key) in dataUniv" :key="key">
+                                <option :value="key" x-text="key"></option>
+                            </template>
+                        </select>
+                    </div>
+
+                    <!-- Fakultas -->
+                    <div x-show="showFakultas" x-transition>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Fakultas</label>
+                        <select x-model="selectedFakultas" name="fakultas"
+                            class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 px-3 py-2 bg-white"
+                            @change="updateProdi()">
+                            <option value="">-- Pilih Fakultas --</option>
+                            <template x-for="(prodis, fakultas) in fakultasList" :key="fakultas">
+                                <option :value="fakultas" x-text="fakultas"></option>
+                            </template>
+                        </select>
+                    </div>
+
+                    <!-- Program Studi -->
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Program Studi</label>
+                        <select x-model="selectedProdi" name="program_studi"
+                            class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 px-3 py-2 bg-white">
+                            <option value="">-- Pilih Program Studi --</option>
+                            <template x-for="prodi in prodiList" :key="prodi">
+                                <option :value="prodi" x-text="prodi"></option>
+                            </template>
+                        </select>
+                    </div>
                 </div>
+
+                <script>
+                    document.addEventListener('alpine:init', () => {
+                        Alpine.data('editForm', () => ({
+                            // State
+                            selectedUniv: '',
+                            selectedFakultas: '',
+                            selectedProdi: '',
+                            fakultasList: {},
+                            prodiList: [],
+                            showFakultas: false,
+
+                            // Data universitas dan fakultas
+                            dataUniv: {
+                                'ARS University': {
+                                    fakultas: {
+                                        'Fakultas Teknologi Informasi': [
+                                            'Program Studi Sistem Informasi S1',
+                                            'Program Studi Teknik Informatika S1'
+                                        ],
+                                        'Fakultas Ekonomi': [
+                                            'Program Studi Akuntansi S1',
+                                            'Program Studi Manajemen S1'
+                                        ],
+                                        'Fakultas Komunikasi Dan Desain': [
+                                            'Program Studi Ilmu Komunikasi S1',
+                                            'Program Studi Desain Komunikasi Visual S1'
+                                        ],
+                                        'Fakultas Keperawatan': [
+                                            'Program Studi Ilmu Keperawatan S1',
+                                            'Program Profesi Ners'
+                                        ],
+                                        'Pariwisata Dan Perhotelan': [
+                                            'Program Studi Manajemen Pariwisata S1',
+                                            'Program Studi Perhotelan D3'
+                                        ]
+                                    }
+                                },
+                                'STIT Bandung': {
+                                    fakultas: {
+                                        'Program Studi': [
+                                            'Pendidikan Agama Islam (PAI) S1',
+                                            'Manajemen Pendidikan Islam S1',
+                                            'Pendidikan Islam Anak Usia Dini (PIAUDI) S1',
+                                            'Pendidikan Guru Madrasah Ibtidaiyah (PGMI) S1',
+                                            'Manajemen Keuangan Syariah S1',
+                                            'Ekonomi Islam S1',
+                                            'Perbankan Syariah S1',
+                                            'Pendidikan Bahasa Inggris S1',
+                                            'Sastra & Bahasa Indonesia S1'
+                                        ]
+                                    }
+                                },
+                                'IWU': {
+                                    fakultas: {
+                                        'Program Studi': [
+                                            'Hubungan International',
+                                            'Ilmu Komunikasi',
+                                            'Ilmu Politik',
+                                            'Administrasi Bisnis',
+                                            'Matematika',
+                                            'Biologi',
+                                            'Desain Interior',
+                                            'Fisika',
+                                            'Kimia',
+                                            'Desain Komunikasi Visual',
+                                            'Informatika',
+                                            'Akuntansi Perpajakan',
+                                            'Peradilan Pidana'
+                                        ]
+                                    }
+                                },
+                                'UICM': {
+                                    fakultas: {
+                                        'Fakultas Ekonomi & Bisnis': [
+                                            'Program Studi Akuntansi S1',
+                                            'Program Studi Manajemen S1'
+                                        ],
+                                        'Fakultas Teknik': [
+                                            'Program Studi Teknik Industri S1',
+                                            'Program Studi Teknik Kimia S1',
+                                            'Program Studi Teknik Industri Tekstil D3',
+                                            'Program Studi Teknik Kimia Tekstil D3'
+                                        ],
+                                        'Fakultas Pertanian': [
+                                            'Program Studi Ilmu Agribisnis S1',
+                                            'Program Studi Agroteknologi S1',
+                                            'Program Studi Peternakan S1',
+                                            'Program Studi Arsitektur Lanskap S1',
+                                            'Program Studi Teknologi Hasil Pertanian S1'
+                                        ],
+                                        'Fakultas Keguruan & Ilmu Pendidikan': [
+                                            'Program Studi Pendidikan Masyarakat S1'
+                                        ]
+                                    }
+                                },
+                                'STEBI Bina Essa': {
+                                    fakultas: {
+                                        'Program Studi': [
+                                            'Ekonomi Syariah S1',
+                                            'Perbankan Syariah S1'
+                                        ]
+                                    }
+                                },
+                                'Universitas Wiralodra': {
+                                    fakultas: {
+                                        'Program Studi': [
+                                            'Manajemen Pendidikan S2',
+                                            'Hukum S2'
+                                        ]
+                                    }
+                                }
+                            },
+
+                            // Fungsi-fungsi utama
+                            updateFakultas() {
+                                if (this.selectedUniv && this.dataUniv[this.selectedUniv] && this.dataUniv[this
+                                        .selectedUniv].fakultas) {
+                                    this.fakultasList = this.dataUniv[this.selectedUniv].fakultas;
+                                } else {
+                                    this.fakultasList = {};
+                                }
+
+                                // Tampilkan fakultas jika ada setidaknya satu entri
+                                this.showFakultas = Object.keys(this.fakultasList).length > 0;
+
+                                // Reset pilihan turunannya
+                                this.selectedFakultas = '';
+                                this.prodiList = [];
+                                this.selectedProdi = '';
+                            },
+
+                            updateProdi() {
+                                if (this.selectedFakultas && this.fakultasList[this.selectedFakultas]) {
+                                    this.prodiList = this.fakultasList[this.selectedFakultas];
+                                } else {
+                                    this.prodiList = [];
+                                }
+
+                                this.selectedProdi = '';
+                            },
+
+                            // Inisialisasi nilai saat halaman edit dibuka
+                            initData(univ, fakultas, prodi) {
+                                // set nilai jika ada
+                                if (univ) this.selectedUniv = univ;
+                                this.updateFakultas();
+
+                                if (fakultas) this.selectedFakultas = fakultas;
+                                this.updateProdi();
+
+                                if (prodi) this.selectedProdi = prodi;
+                            }
+                        }));
+                    });
+                </script>
 
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Nama Lengkap</label>
@@ -462,18 +649,6 @@
                         KIP</label>
                     <input type="file" id="file_kip" name="file_kip" accept=".pdf,.jpg,.jpeg,.png"
                         class="w-full text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600 transition">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Fakultas</label>
-                    <input type="text" name="fakultas" value="{{ $data->fakultas }}"
-                        class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 px-3 py-2">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Program Studi</label>
-                    <input type="text" name="program_studi" value="{{ $data->program_studi }}"
-                        class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 px-3 py-2">
                 </div>
 
                 <div>

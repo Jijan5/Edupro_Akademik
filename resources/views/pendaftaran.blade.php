@@ -26,7 +26,7 @@
 
         /* kecilkan overlay blur agar mirip screenshot */
         .bg-pattern {
-            background: linear-gradient(135deg, #38BDF8, #0EA5E9);
+            background: linear-gradient(135deg, #f3f3f3, #f3f3f3);
         }
 
         /* white stroke outline */
@@ -49,7 +49,7 @@
                     <div class="text-center mb-6">
                         <img src="{{ asset('images/edupro-logo.png') }}" alt="EduPro"
                             class="mx-auto w-36 h-auto mb-3">
-                        <h2 class="text-3xl font-bold text-gray-100 text-primary mb-2">Formulir Pendaftaran Mahasiswa
+                        <h2 class="text-3xl font-bold text-gray-900 text-primary mb-2">Formulir Pendaftaran Mahasiswa
                         </h2>
                     </div>
 
@@ -61,7 +61,7 @@
                         <!-- Universitas -->
                         {{-- {{ $error ?? '' }} --}}
                         @if ($errors->any())
-                            <div class="bg-red-500/20 border border-red-400 text-red-200 px-4 py-3 rounded mb-4">
+                            <div class="bg-red-500/20 border border-red-400 text-red-900 px-4 py-3 rounded mb-4">
                                 <ul class="list-disc list-inside">
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
@@ -252,9 +252,9 @@
                         }" x-init="init()">
 
                             <!-- Dropdown Universitas -->
-                            <div class="relative flex items-center bg-white/10 rounded-md px-3 py-2 mb-4">
+                            <div class="relative flex items-center bg-white/90 rounded-md px-3 py-2 mb-4">
                                 <select name="universitas" x-model="universitas" @change="fakultas=''; programStudi=''"
-                                    class="w-full bg-transparent text-gray-100 focus:outline-none cursor-pointer">
+                                    class="w-full bg-transparent text-gray-900 focus:outline-none cursor-pointer">
                                     <option value="">-- Pilih Universitas --</option>
                                     <template x-for="(value, key) in data" :key="key">
                                         <option :value="key" x-text="key" class="bg-gray-100 text-gray-700">
@@ -265,9 +265,9 @@
 
                             <!-- Dropdown Fakultas (sembunyikan bila universitas tidak punya fakultas) -->
                             <div x-show="!hasNoFakultas()"
-                                class="relative flex items-center bg-white/10 rounded-md px-3 py-2 mb-4" x-cloak>
+                                class="relative flex items-center bg-white/90 rounded-md px-3 py-2 mb-4" x-cloak>
                                 <select name="fakultas" x-model="fakultas" @change="programStudi=''"
-                                    class="w-full bg-transparent text-gray-100 focus:outline-none cursor-pointer">
+                                    class="w-full bg-transparent text-gray-900 focus:outline-none cursor-pointer">
                                     <option value="">-- Pilih Fakultas --</option>
                                     <template x-for="fak in getFakultasList()" :key="fak">
                                         <option :value="fak" x-text="fak" class="bg-gray-100 text-gray-700">
@@ -277,9 +277,9 @@
                             </div>
 
                             <!-- Dropdown Program Studi -->
-                            <div class="relative flex items-center bg-white/10 rounded-md px-3 py-2 mb-4">
+                            <div class="relative flex items-center bg-white/90 rounded-md px-3 py-2 mb-4">
                                 <select name="program_studi" x-model="programStudi"
-                                    class="w-full bg-transparent text-gray-100 focus:outline-none cursor-pointer">
+                                    class="w-full bg-transparent text-gray-900 focus:outline-none cursor-pointer">
                                     <option value="">-- Pilih Program Studi --</option>
                                     <template x-for="prodi in getProdiList()" :key="prodi">
                                         <option :value="prodi" x-text="prodi" class="bg-gray-100 text-gray-700">
@@ -293,9 +293,9 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <div>
                                 <label class="sr-only">Nama Lengkap</label>
-                                <div class="flex items-center bg-white/10 rounded-md px-3 py-2">
+                                <div class="flex items-center bg-white/90 rounded-md px-3 py-2">
                                     <!-- icon -->
-                                    <svg class="w-[20px] h-[20px] text-gray-100 dark:text-white mr-3" aria-hidden="true"
+                                    <svg class="w-[20px] h-[20px] text-gray-900 dark:text-white mr-3" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                         fill="currentColor" viewBox="0 0 24 24">
                                         <path fill-rule="evenodd"
@@ -303,14 +303,14 @@
                                             clip-rule="evenodd" />
                                     </svg>
                                     <input name="nama_lengkap" type="text" placeholder="Nama Lengkap"
-                                        class="w-full bg-transparent text-gray-100 placeholder-gray-100 focus:outline-none" />
+                                        class="w-full bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none" />
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
-                                    <div class="flex items-center bg-white/10 rounded-md px-3 py-2">
-                                        <svg class="w-[20px] h-[20px] text-gray-100 dark:text-white mr-3"
+                                    <div class="flex items-center bg-white/90 rounded-md px-3 py-2">
+                                        <svg class="w-[20px] h-[20px] text-gray-900 dark:text-white mr-3"
                                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                             height="24" fill="currentColor" viewBox="0 0 24 24">
                                             <path fill-rule="evenodd"
@@ -319,22 +319,22 @@
                                         </svg>
 
                                         <input name="tempat_lahir" type="text" placeholder="Tempat Lahir"
-                                            class="w-full bg-transparent text-gray-100 placeholder-gray-100 focus:outline-none" />
+                                            class="w-full bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none" />
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="flex items-center bg-white/10 rounded-md px-3 py-2">
+                                    <div class="flex items-center bg-white/90 rounded-md px-3 py-2">
                                         <input name="tanggal_lahir" type="date"
-                                            class="w-full bg-transparent text-gray-100 placeholder-gray-100 focus:outline-none" />
+                                            class="w-full bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none" />
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- NISN -->
-                        <div class="w-full bg-transparent text-gray-100 placeholder-gray-100 focus:outline-none">
-                            <div class="flex items-center bg-white/10 rounded-md px-3 py-2">
-                                <svg class="w-[20px] h-[20px] text-gray-100 dark:text-white mr-3" aria-hidden="true"
+                        <div class="w-full bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none">
+                            <div class="flex items-center bg-white/90 rounded-md px-3 py-2">
+                                <svg class="w-[20px] h-[20px] text-gray-900 dark:text-white mr-3" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                     viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"
@@ -342,14 +342,14 @@
                                         clip-rule="evenodd" />
                                 </svg>
                                 <input name="nisn" type="text" placeholder="NISN"
-                                    class="w-full bg-transparent text-gray-100 placeholder-gray-100 focus:outline-none" />
+                                    class="w-full bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none" />
                             </div>
                         </div>
 
                         <!-- Nama Ibu -->
-                        <div class="w-full bg-transparent text-gray-100 placeholder-gray-300 focus:outline-none">
-                            <div class="flex items-center bg-white/10 rounded-md px-3 py-2">
-                                <svg class="w-[20px] h-[20px] text-gray-100 dark:text-white mr-3" aria-hidden="true"
+                        <div class="w-full bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none">
+                            <div class="flex items-center bg-white/90 rounded-md px-3 py-2">
+                                <svg class="w-[20px] h-[20px] text-gray-900 dark:text-white mr-3" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"
@@ -357,29 +357,29 @@
                                         clip-rule="evenodd" />
                                 </svg>
                                 <input name="nama_ibu_kandung" type="text" placeholder="Nama Ibu Kandung"
-                                    class="w-full bg-transparent text-gray-100 placeholder-gray-100 focus:outline-none" />
+                                    class="w-full bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none" />
                             </div>
                         </div>
 
                         <!-- Kewarganegaraan/NIK -->
-                        <div class="relative flex items-center bg-white/10 rounded-md px-3 py-2">
+                        <div class="relative flex items-center bg-white/90 rounded-md px-3 py-2">
                             <select name="kewarganegaraan"
-                                class="w-full appearance-none bg-transparent text-gray-100 placeholder-gray-100 focus:outline-none cursor-pointer">
+                                class="w-full appearance-none bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none cursor-pointer">
                                 <option value="" disabled selected>Kewarganegaraan</option>
-                                <option value="WNI" class="bg-gray-100 text-gray-700">WNI</option>
-                                <option value="WNA" class="bg-gray-100 text-gray-700">WNA</option>
+                                <option value="WNI" class="bg-gray-100 text-gray-900">WNI</option>
+                                <option value="WNA" class="bg-gray-100 text-gray-900">WNA</option>
                             </select>
                             <svg xmlns="http://www.w3.org/2000/svg"
-                                class="absolute right-3 w-5 h-5 text-gray-300 pointer-events-none" fill="none"
+                                class="absolute right-3 w-5 h-5 text-gray-900 pointer-events-none" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 9l-7 7-7-7" />
                             </svg>
                         </div>
 
-                        <div class="w-full bg-transparent text-gray-100 placeholder-gray-100 focus:outline-none">
-                            <div class="flex items-center bg-white/10 rounded-md px-3 py-2">
-                                <svg class="w-[20px] h-[20px] text-gray-100 dark:text-white mr-3" aria-hidden="true"
+                        <div class="w-full bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none">
+                            <div class="flex items-center bg-white/90 rounded-md px-3 py-2">
+                                <svg class="w-[20px] h-[20px] text-gray-900 dark:text-white mr-3" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"
@@ -388,27 +388,27 @@
                                 </svg>
 
                                 <input name="nik" type="text" placeholder="NIK"
-                                    class="w-full bg-transparent text-gray-100 placeholder-gray-100 focus:outline-none" />
+                                    class="w-full bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none" />
                             </div>
                         </div>
 
                         <!-- Jalur Program -->
                         <div x-data="{ jalur_program: ' ' }" class="space-y-4">
-                            <div class="flex items-center gap-4 text-sm"> <span class="text-gray-100">Jalur
+                            <div class="flex items-center gap-4 text-sm"> <span class="text-gray-900">Jalur
                                     Program:</span> <label class="inline-flex items-center gap-2"> <input
                                         type="radio" name="jalur_program" value="KIP" x-model="jalur_program"
-                                        class="form-radio"> <span class="text-gray-100">KIP</span> </label> <label
+                                        class="form-radio"> <span class="text-gray-900">KIP</span> </label> <label
                                     class="inline-flex items-center gap-2"> <input type="radio"
                                         name="jalur_program" value="Non-KIP" x-model="jalur_program"
-                                        class="form-radio"> <span class="text-gray-100">Non-KIP</span> </label> </div>
+                                        class="form-radio"> <span class="text-gray-900">Non-KIP</span> </label> </div>
                             <!-- Kolom tambahan muncul hanya jika KIP dipilih -->
                             <div x-show="jalur_program === 'KIP'" x-transition
-                                class="mt-3 bg-white/10 p-4 rounded-lg space-y-3">
-                                <div> <label for="nomor_kip" class="block text-gray-100 mb-1">Nomor KIP</label> <input
+                                class="mt-3 bg-white/90 p-4 rounded-lg space-y-3">
+                                <div> <label for="nomor_kip" class="block text-gray-900 mb-1">Nomor KIP</label> <input
                                         type="text" id="no_kip" name="no_kip"
-                                        class="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        class="w-full px-4 py-2 rounded-md border border-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="Masukkan Nomor KIP"> </div>
-                                <div> <label for="file_kip" class="block text-gray-100 mb-1">Upload File KIP</label>
+                                <div> <label for="file_kip" class="block text-gray-900 mb-1">Upload File KIP</label>
                                     <input type="file" id="file_kip" name="file_kip"
                                         accept=".pdf,.jpg,.jpeg,.png"
                                         class="w-full text-gray-100 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700">
@@ -418,11 +418,11 @@
 
                         <!-- Upload Ijazah -->
                         <div x-data="fileUploadIjazah()" id="upload-ijazah" class="w-full">
-                            <label class="block text-sm text-gray-100 mb-2">
+                            <label class="block text-sm text-gray-900 mb-2">
                                 Upload Ijazah Terakhir: (.pdf/.jpg) max 2MB
                             </label>
 
-                            <div x-bind:class="{ 'bg-white/40 border-blue-400': isDragging, 'bg-white/20 border-gray-100': !isDragging }"
+                            <div x-bind:class="{ 'bg-white/40 border-blue-400': isDragging, 'bg-white/50 border-gray-700': !isDragging }"
                                 @dragover.prevent="isDragging = true" @dragleave.prevent="isDragging = false"
                                 @drop.prevent="handleDrop($event)"
                                 class="relative border-2 border-dashed rounded-md p-6 flex flex-col items-center justify-center text-center cursor-pointer transition">
@@ -430,7 +430,7 @@
                                     class="absolute inset-0 opacity-0 cursor-pointer" x-ref="fileInput"
                                     @change="handleFileSelect" />
 
-                                <svg class="w-[40px] h-[40px] text-gray-100 mb-2" aria-hidden="true"
+                                <svg class="w-[40px] h-[40px] text-gray-900 mb-2" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"
                                         d="M12 3a1 1 0 0 1 .78.375l4 5a1 1 0 1 1-1.56 1.25L13 6.85V14a1 1 0 1 1-2 0V6.85L8.78 9.626a1 1 0 1 1-1.56-1.25l4-5A1 1 0 0 1 12 3ZM9 14v-1H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-4v1a3 3 0 1 1-6 0Zm8 2a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z"
@@ -438,18 +438,18 @@
                                 </svg>
 
                                 <template x-if="!fileName">
-                                    <p class="text-sm text-gray-100">Klik atau tarik file ke sini</p>
+                                    <p class="text-sm text-gray-900">Klik atau tarik file ke sini</p>
                                 </template>
 
                                 <template x-if="fileName">
-                                    <p class="text-sm text-gray-100 font-medium mt-2" x-text="fileName"></p>
+                                    <p class="text-sm text-gray-900 font-medium mt-2" x-text="fileName"></p>
                                     <!-- Opsional: Tampilkan preview jika gambar -->
                                     <template x-if="filePreview && filePreview !== 'pdf'">
                                         <img :src="filePreview" class="mt-2 max-w-32 max-h-32" />
                                     </template>
                                     <!-- Opsional: Tampilkan ikon untuk PDF -->
                                     <template x-if="filePreview === 'pdf'">
-                                        <p class="text-sm text-gray-100 mt-2">📄 PDF File</p>
+                                        <p class="text-sm text-gray-900 mt-2">📄 PDF File</p>
                                     </template>
                                 </template>
 
@@ -463,8 +463,8 @@
                         <!-- Contoh untuk kolom foto (pisahkan dengan nama unik, asumsikan serupa) -->
                         <div x-data="fileUploadFoto()" id="upload-foto" class="w-full">
                             <!-- ... kode serupa untuk foto, tapi ganti nama komponen dan pesan error -->
-                            <label class="block text-sm text-gray-100 mb-2">
-                                Upload Foto: (.jpg/.png) max 2MB
+                            <label class="block text-sm text-gray-900 mb-2">
+                                No. Ijazah
                             </label>
                             <!-- ... sisanya serupa, tapi pastikan validasi hanya untuk gambar -->
                             <template x-if="error">
@@ -563,23 +563,23 @@
 
                         <!-- Nomor Ijazah -->
                         <div>
-                            <div class="flex items-center bg-white/10 rounded-md px-3 py-2">
-                                <svg class="w-5 h-5 text-gray-100 mr-3" viewBox="0 0 24 24" fill="none"
+                            <div class="flex items-center bg-white/90 rounded-md px-3 py-2">
+                                <svg class="w-5 h-5 text-gray-900 mr-3" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor">
                                     <path stroke-width="1.3" d="M3 7h18" />
                                 </svg>
                                 <input name="no_ijazah" type="text" placeholder="No. Ijazah"
-                                    class="w-full bg-transparent text-gray-100 placeholder-gray-100 focus:outline-none" />
+                                    class="w-full bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none" />
                             </div>
                         </div>
 
                         <!-- Upload Transkrip Nilai -->
                         <div x-data="fileUploadTranskrip()" id="upload-transkrip" class="w-full">
-                            <label class="block text-sm text-gray-100 mb-2">
+                            <label class="block text-sm text-gray-900 mb-2">
                                 Upload Transkrip Nilai: (.pdf/.jpg) max 2MB
                             </label>
 
-                            <div x-bind:class="{ 'bg-white/40 border-blue-400': isDragging, 'bg-white/20 border-gray-100': !isDragging }"
+                            <div x-bind:class="{ 'bg-white/40 border-blue-400': isDragging, 'bg-white/50 border-gray-700': !isDragging }"
                                 @dragover.prevent="isDragging = true" @dragleave.prevent="isDragging = false"
                                 @drop.prevent="handleDrop($event)"
                                 class="relative border-2 border-dashed rounded-md p-6 flex flex-col items-center justify-center text-center cursor-pointer transition">
@@ -587,7 +587,7 @@
                                     class="absolute inset-0 opacity-0 cursor-pointer" x-ref="fileInput"
                                     @change="handleFileSelect" />
 
-                                <svg class="w-[40px] h-[40px] text-gray-100 mb-2" aria-hidden="true"
+                                <svg class="w-[40px] h-[40px] text-gray-900 mb-2" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"
                                         d="M12 3a1 1 0 0 1 .78.375l4 5a1 1 0 1 1-1.56 1.25L13 6.85V14a1 1 0 1 1-2 0V6.85L8.78 9.626a1 1 0 1 1-1.56-1.25l4-5A1 1 0 0 1 12 3ZM9 14v-1H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-4v1a3 3 0 1 1-6 0Zm8 2a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z"
@@ -595,18 +595,18 @@
                                 </svg>
 
                                 <template x-if="!fileName">
-                                    <p class="text-sm text-gray-100">Klik atau tarik file ke sini</p>
+                                    <p class="text-sm text-gray-900">Klik atau tarik file ke sini</p>
                                 </template>
 
                                 <template x-if="fileName">
-                                    <p class="text-sm text-gray-100 font-medium mt-2" x-text="fileName"></p>
+                                    <p class="text-sm text-gray-900 font-medium mt-2" x-text="fileName"></p>
                                     <!-- Opsional: Tampilkan preview jika gambar -->
                                     <template x-if="filePreview && filePreview !== 'pdf'">
                                         <img :src="filePreview" class="mt-2 max-w-32 max-h-32" />
                                     </template>
                                     <!-- Opsional: Tampilkan ikon untuk PDF -->
                                     <template x-if="filePreview === 'pdf'">
-                                        <p class="text-sm text-gray-100 mt-2">📄 PDF File</p>
+                                        <p class="text-sm text-gray-900 mt-2">📄 PDF File</p>
                                     </template>
                                 </template>
 
@@ -701,11 +701,11 @@
 
                         <!-- Upload Foto Diri -->
                         <div x-data="fileUpload()" class="w-full">
-                            <label class="block text-sm text-gray-100 mb-2">
+                            <label class="block text-sm text-gray-900 mb-2">
                                 Upload Foto Diri: (.png, .jpg, .jpeg) max 2MB
                             </label>
 
-                            <div x-bind:class="{ 'bg-white/40 border-blue-400': isDragging, 'bg-white/20 border-gray-100': !isDragging }"
+                            <div x-bind:class="{ 'bg-white/40 border-blue-400': isDragging, 'bg-white/50 border-gray-700': !isDragging }"
                                 @dragover.prevent="isDragging = true" @dragleave.prevent="isDragging = false"
                                 @drop.prevent="handleDrop($event)"
                                 class="relative border-2 border-dashed rounded-md p-6 flex flex-col items-center justify-center text-center cursor-pointer transition">
@@ -714,7 +714,7 @@
                                     class="absolute inset-0 opacity-0 cursor-pointer" x-ref="fileInput"
                                     @change="handleFileSelect" />
 
-                                <svg class="w-[40px] h-[40px] text-gray-100 mb-2" aria-hidden="true"
+                                <svg class="w-[40px] h-[40px] text-gray-900 mb-2" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd"
                                         d="M12 3a1 1 0 0 1 .78.375l4 5a1 1 0 1 1-1.56 1.25L13 6.85V14a1 1 0 1 1-2 0V6.85L8.78 9.626a1 1 0 1 1-1.56-1.25l4-5A1 1 0 0 1 12 3ZM9 14v-1H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-4v1a3 3 0 1 1-6 0Zm8 2a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z"
@@ -722,11 +722,11 @@
                                 </svg>
 
                                 <template x-if="!fileName">
-                                    <p class="text-sm text-gray-100">Klik atau tarik file ke sini</p>
+                                    <p class="text-sm text-gray-900">Klik atau tarik file ke sini</p>
                                 </template>
 
                                 <template x-if="fileName">
-                                    <p class="text-sm text-gray-100 font-medium mt-2" x-text="fileName"></p>
+                                    <p class="text-sm text-gray-900 font-medium mt-2" x-text="fileName"></p>
                                 </template>
 
                                 <!-- Pesan error sekarang di dalam kolom upload -->
@@ -790,8 +790,8 @@
                         <!-- Contact / Email -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <div>
-                                <div class="flex items-center bg-white/10 rounded-md px-3 py-2">
-                                    <svg class="w-[20px] h-[20px] text-gray-100 dark:text-white mr-3"
+                                <div class="flex items-center bg-white/90 rounded-md px-3 py-2">
+                                    <svg class="w-[20px] h-[20px] text-gray-900 dark:text-white mr-3"
                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" fill="none" viewBox="0 0 24 24">
                                         <path fill="currentColor" fill-rule="evenodd"
@@ -801,13 +801,13 @@
                                             d="M16.735 13.492c-.038-.018-1.497-.736-1.756-.83a1.008 1.008 0 0 0-.34-.075c-.196 0-.362.098-.49.291-.146.217-.587.732-.723.886-.018.02-.042.045-.057.045-.013 0-.239-.093-.307-.123-1.564-.68-2.751-2.313-2.914-2.589-.023-.04-.024-.057-.024-.057.005-.021.058-.074.085-.101.08-.079.166-.182.249-.283l.117-.14c.121-.14.175-.25.237-.375l.033-.066a.68.68 0 0 0-.02-.64c-.034-.069-.65-1.555-.715-1.711-.158-.377-.366-.552-.655-.552-.027 0 0 0-.112.005-.137.005-.883.104-1.213.311-.35.22-.94.924-.94 2.16 0 1.112.705 2.162 1.008 2.561l.041.06c1.161 1.695 2.608 2.951 4.074 3.537 1.412.564 2.081.63 2.461.63.16 0 .288-.013.4-.024l.072-.007c.488-.043 1.56-.599 1.804-1.276.192-.534.243-1.117.115-1.329-.088-.144-.239-.216-.43-.308Z" />
                                     </svg>
                                     <input name="no_hp" type="tel" placeholder="WhatsApp"
-                                        class="w-full bg-transparent text-gray-100 placeholder-gray-100 focus:outline-none" />
+                                        class="w-full bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none" />
                                 </div>
                             </div>
 
                             <div>
-                                <div class="flex items-center bg-white/10 rounded-md px-3 py-2">
-                                    <svg class="w-[20px] h-[20px] text-gray-100 dark:text-white mr-3"
+                                <div class="flex items-center bg-white/90 rounded-md px-3 py-2">
+                                    <svg class="w-[20px] h-[20px] text-gray-900 dark:text-white mr-3"
                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" fill="currentColor" viewBox="0 0 24 24">
                                         <path
@@ -815,7 +815,7 @@
                                     </svg>
 
                                     <input name="email" type="email" placeholder="Email"
-                                        class="w-full bg-transparent text-gray-100 placeholder-gray-100 focus:outline-none" />
+                                        class="w-full bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none" />
                                 </div>
                             </div>
                         </div>
@@ -831,17 +831,17 @@
 
                             <!-- Password -->
                             <div>
-                                <div class="flex items-center bg-white/10 rounded-md px-3 py-2">
-                                    <svg class="w-5 h-5 text-gray-100 mr-3"></svg>
+                                <div class="flex items-center bg-white/90 rounded-md px-3 py-2">
+                                    <svg class="w-5 h-5 text-gray-900 mr-3"></svg>
                                     <input :type="showPassword ? 'text' : 'password'" x-model="password"
                                         name="password" placeholder="Password"
-                                        class="w-full bg-transparent text-gray-100 placeholder-gray-100 focus:outline-none"
+                                        class="w-full bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none"
                                         @input="error = (confirmPassword && password !== confirmPassword) ? 'Password tidak sesuai' : ''" />
                                     <button type="button" @click="showPassword = !showPassword"
-                                        class="ml-3 text-gray-100">
+                                        class="ml-3 text-gray-900">
                                         <template x-if="!showPassword">
                                             <!-- Eye -->
-                                            <svg class="w-[20px] h-[20px] text-gray-100 dark:text-white"
+                                            <svg class="w-[20px] h-[20px] text-gray-900 dark:text-white"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                 fill="currentColor" viewBox="0 0 24 24">
                                                 <path fill-rule="evenodd"
@@ -865,17 +865,17 @@
 
                             <!-- Konfirmasi Password -->
                             <div>
-                                <div class="flex items-center bg-white/10 rounded-md px-3 py-2">
+                                <div class="flex items-center bg-white/90 rounded-md px-3 py-2">
                                     <svg class="w-5 h-5 text-gray-100 mr-3"></svg>
                                     <input :type="showConfirmPassword ? 'text' : 'password'" x-model="confirmPassword"
                                         name="Konfirm_password" placeholder="Ulangi Password"
-                                        class="w-full bg-transparent text-gray-300 placeholder-gray-100 focus:outline-none"
+                                        class="w-full bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none"
                                         @input="error = (password !== confirmPassword) ? 'Password tidak sesuai' : ''" />
                                     <button type="button" @click="showConfirmPassword = !showConfirmPassword"
-                                        class="ml-3 text-gray-100">
+                                        class="ml-3 text-gray-900">
                                         <template x-if="!showConfirmPassword">
                                             <!-- Eye -->
-                                            <svg class="w-[20px] h-[20px] text-gray-100 dark:text-white"
+                                            <svg class="w-[20px] h-[20px] text-gray-900 dark:text-white"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                 fill="currentColor" viewBox="0 0 24 24">
                                                 <path fill-rule="evenodd"
@@ -901,31 +901,33 @@
                         </div>
 
                         <!-- Petunjuk Password -->
-                        <div class="bg-white/10 p-3 rounded-md text-sm text-gray-100">
+                        <div class="bg-white/90 p-3 rounded-md text-sm text-gray-900">
                             <ul class="list-disc pl-5">
                                 <li>Minimal 8 karakter.</li>
                                 <li>Harus mengandung minimal satu huruf kecil.</li>
                                 <li>Harus mengandung minimal satu huruf besar.</li>
                                 <li>Harus mengandung minimal satu angka.</li>
+                                <li>Contoh Password: Mahasiswa_baru2025 </li>
                             </ul>
                         </div>
 
                         <!-- Captcha dan Persetujuan -->
-                        <div class="space-y-6 mt-6">
+                        <div class="space-y-6 mt-6" x-data="captchaForm()" x-init="regenerateCaptcha()">
                             <!-- Captcha -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-100 mb-2">Kerjakan soal di bawah
-                                    ini:</label>
+                                <label class="block text-sm font-medium text-gray-900 mb-2">
+                                    Kerjakan soal di bawah ini:
+                                </label>
                                 <div class="flex flex-col md:flex-row items-center gap-3">
                                     <!-- Soal -->
                                     <div
-                                        class="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-md text-gray-100 font-semibold min-w-[100px] justify-center">
+                                        class="flex items-center gap-2 bg-white/90 px-4 py-2 rounded-md text-gray-900 font-semibold min-w-[100px] justify-center">
                                         <span x-text="captchaText"></span>
                                     </div>
 
                                     <!-- Input Jawaban -->
                                     <input type="text" name="capthca" placeholder="Jawab disini" required
-                                        class="flex-1 bg-white/10 rounded-md px-4 py-2 text-gray-100 placeholder-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-300" />
+                                        class="flex-1 bg-white/90 rounded-md px-4 py-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-300" />
 
                                     <!-- Tombol Refresh -->
                                     <button type="button"
@@ -940,7 +942,7 @@
                             <div class="flex items-start gap-3">
                                 <input type="checkbox" name="agreement" required
                                     class="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
-                                <span class="text-gray-100 text-sm leading-relaxed">
+                                <span class="text-gray-900 text-sm leading-relaxed">
                                     Saya menyetujui semua persyaratan pendaftaran, apabila ada data yang keliru saya
                                     siap bertanggung jawab.
                                 </span>
@@ -960,9 +962,8 @@
                                         let a = num1;
                                         let b = num2;
 
-                                        // Biar pembagian tetap hasil bulat
                                         if (operator === '÷') {
-                                            a = num1 * num2; // contoh: 8 ÷ 2, bukan 7 ÷ 2
+                                            a = num1 * num2;
                                         }
 
                                         this.captchaText = `${a} ${operator} ${b}`;
@@ -971,10 +972,11 @@
                             });
                         </script>
 
+
                         <!-- Tombol aksi -->
                         <div class="flex flex-col md:flex-row gap-3 justify-between">
                             <a href="{{ url('/welcome') }}"
-                                class="block text-center bg-white/20 text-white px-6 py-2 rounded-md">Kembali</a>
+                                class="block text-center bg-white/90 text-gray-900 px-6 py-2 rounded-md">Kembali</a>
                             <button type="submit"
                                 class="block bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md">Daftar</button>
                         </div>

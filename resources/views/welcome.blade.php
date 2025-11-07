@@ -168,7 +168,8 @@
           {id:3, nama:'IWU'},
           {id:4, nama:'UICM'},
           {id:5, nama:'STEBI Bina Essa'},
-          {id:6, nama:'Universitas Wiralodra'}
+          {id:6, nama:'Universitas Wiralodra'},
+          {id:7, nama:'Tanjung Pinang'}
         ]"
                     :key="tab.id">
                     <button @click="openTab = tab.id"
@@ -841,7 +842,7 @@
                     </div>
                 </div>
 
-                <!-- STEBI Bina Essa -->
+                <!-- UNWIR -->
                 <div x-show="openTab === 6" x-transition x-data="{ programStudi: '', baseUrl: '{{ url('/pendaftaran') }}' }">
                     <h3 class="text-xl font-bold text-blue-700 mb-4">Universitas Wiralodra (Magister/Pascasarjana S2)</h3>
 
@@ -931,8 +932,98 @@
                         </div> --}}
                     </div>
 
+                <!-- Tanjung Pinang -->
+                <div x-show="openTab === 6" x-transition x-data="{ programStudi: '', baseUrl: '{{ url('/pendaftaran') }}' }">
+                    <h3 class="text-xl font-bold text-blue-700 mb-4">Tanjung Pinang</h3>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Dropdown Program Studi -->
+                        <div>
+                            <label class="block mb-2 font-semibold text-gray-700">Program Studi:</label>
+                            <select x-model="programStudi"
+                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                <option value="">-- Pilih Program Studi --</option>
+                                <option>Manajemen Pendidikan S2</option>
+                                <option>Hukum S2</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Rincian Biaya -->
+                    <div class="mt-6 text-gray-700">
+                        <h4 class="font-semibold text-lg mb-3 text-blue-700">Rincian Biaya Akan Diinfokan Lebih lanjut
+                        </h4>
+                        {{-- <div class="overflow-x-auto">
+                            <table class="w-full border border-gray-300 rounded-lg overflow-hidden text-sm">
+                                <thead class="bg-blue-100 text-gray-700">
+                                    <tr>
+                                        <th class="border border-gray-300 px-4 py-2 text-left">Deskripsi</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Program KIP-K</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Kelar Reguler &
+                                            Experience</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">Kelas Sore/Karyawan
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Pendaftaran</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Jas Almamater, KTM dan Buku
+                                            Panduan</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 700.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 700.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 700.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Asuransi Kecelakaan</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 100.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Pengembangan Pendidikan
+                                            (BPP)</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.000.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.000.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">Biaya Pendidikan (BP) Persemester
+                                        </td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">FISB</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 3.900.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.400.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">FST</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.250.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.750.000</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-2">FSD</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">-</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 4.950.000</td>
+                                        <td class="border border-gray-300 px-4 py-2 text-center">Rp. 5.450.000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> --}}
+                    </div>
+
                     <div class="mt-6 text-right">
-                        <a :href="baseUrl + '?universitas=' + encodeURIComponent('Universitas Wiralodra') + '&program_studi=' + encodeURIComponent(programStudi)"
+                        <a :href="baseUrl + '?universitas=' + encodeURIComponent('Tanjung Pinang') + '&program_studi=' + encodeURIComponent(programStudi)"
                             href="#"
                             class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
                             Daftar Sekarang
